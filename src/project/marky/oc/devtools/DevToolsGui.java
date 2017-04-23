@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import project.marky.oc.devtools.gui.ProjectPanel;
+import project.marky.oc.devtools.gui.UpdateVersionPanel;
 import project.marky.oc.devtools.util.Constants;
 import project.marky.oc.devtools.util.StyleConstants;
 
@@ -115,8 +116,8 @@ public class DevToolsGui
 	private void assembleGui(final JPanel mainPanel)
 	{
 		mainPanel.setLayout(new BorderLayout());
-		// TODO mainPanel.add(new SaveLoadPanel(this), BorderLayout.PAGE_START);
-		mainPanel.add(_project, BorderLayout.PAGE_END);
+		mainPanel.add(_project, BorderLayout.PAGE_START);
+		mainPanel.add(new UpdateVersionPanel(), BorderLayout.PAGE_END);
 	}
 
 
