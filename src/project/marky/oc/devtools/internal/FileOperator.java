@@ -24,7 +24,7 @@ public abstract class FileOperator
 	 * The method goes through the directories and sub-directories and does the following:
 	 * <nl>
 	 * <li>Call {@link #doFolderStuff(File)} on every directory,</li>
-	 * <li>Call {@link #doStuff(File) on every file that was in the directory before step 1.</li>
+	 * <li>Call {@link #doStuff(File)} on every file that was in the directory before step 1.</li>
 	 * </nl>
 	 * </p>
 	 * 
