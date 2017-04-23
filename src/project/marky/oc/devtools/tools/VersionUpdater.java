@@ -16,7 +16,11 @@ public class VersionUpdater extends FileOperator
 
 
 	/**
-	 * Do not use this method, use {@link #run(File, String)} instead.
+	 * <p>
+	 * Updates the version of Defcore.txt files to a specific version.
+	 * </p><p>
+	 * {@inheritDoc}
+	 * </p>
 	 */
 	@Override
 	public void run(final File sourceFolder)
@@ -33,13 +37,11 @@ public class VersionUpdater extends FileOperator
 	/**
 	 * Updates the version of Defcore.txt files to a specific version.
 	 * 
-	 * @param sourceFolder
-	 * @param vrsn
+	 * @param version the version string.
 	 */
-	public void run(final File sourceFolder, final String vrsn)
+	public void setVersion(final String version)
 	{
-		_version = vrsn;
-		run(sourceFolder);
+		_version = version;
 	}
 
 
@@ -53,7 +55,7 @@ public class VersionUpdater extends FileOperator
 
 	private boolean saveDefCore(final File file)
 	{
-		_outputFile = new TextFile(new File(file.getParentFile(), "Defcore.txt"));
+		_outputFile = new TextFile(file);
 
 		readFile(file);
 
