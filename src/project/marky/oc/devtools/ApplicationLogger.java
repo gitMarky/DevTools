@@ -26,6 +26,13 @@ public class ApplicationLogger
 	}
 
 
+	/**
+	 * Gets the global  logger instance.
+	 * 
+	 * @return the logger. Never returns {@code null}
+	 *         because the logger is created if it does
+	 *         not exist yet.
+	 */
 	public static Logger getLogger()
 	{
 		if (_logger == null)
@@ -55,6 +62,10 @@ public class ApplicationLogger
 		return _logger;
 	}
 
+
+	/**
+	 * Internal class that defines the log output format.
+	 */
 	private static class ApplicationLogFormatter extends Formatter
 	{
 		@SuppressWarnings("deprecation")
@@ -99,7 +110,9 @@ public class ApplicationLogger
 			}
 
 			while (builder.length() < size)
+			{
 				builder.append(" ");
+			}
 		}
 	}
 }
