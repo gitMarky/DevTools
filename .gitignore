@@ -4,3 +4,4 @@ bin/*
 *.class
 projects/*
 *.log
+last_session_config.xml

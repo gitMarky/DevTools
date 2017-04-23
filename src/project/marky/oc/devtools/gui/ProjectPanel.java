@@ -8,10 +8,13 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import project.marky.java.gui.BrowseFilePanel;
 import project.marky.java.gui.IFileSelectionListener;
 import project.marky.java.gui.fileChooser.FileChooserDirectory;
 import project.marky.oc.devtools.ApplicationLogger;
+import project.marky.oc.devtools.internal.IProjectConfiguration;
+import project.marky.oc.devtools.internal.ProjectConfiguration;
 import project.marky.oc.devtools.util.StyleConstants;
 
 
@@ -20,7 +23,7 @@ import project.marky.oc.devtools.util.StyleConstants;
  */
 @SuppressWarnings("serial")
 // no serialization intended
-public class ProjectPanel extends JPanel implements IFileSelectionListener
+public class ProjectPanel extends JPanel implements IProjectConfiguration, IFileSelectionListener
 {
 	private final FileChooserDirectory _dir = new FileChooserDirectory(new File("projects"));
 	final BrowseFilePanel _source;
@@ -83,20 +86,40 @@ public class ProjectPanel extends JPanel implements IFileSelectionListener
 	}
 
 
+	/**
+	 * Loads a configuration.
+	 * 
+	 * @param file the config file.
+	 */
 	public void loadConfigFile(final File file)
 	{
 		ApplicationLogger.getLogger().info("Loading project configuration from file: " + file.getAbsolutePath());
-		// TODO final IProjectConfiguration project = ProjectConfiguration.loadFromXml(file);
-		// setTitle(project.getTitle());
-		// setSource(project.getSource());
-		// setOutput(project.getOutput());
-		// setStylesheet(project.getStylesheet());
+		final IProjectConfiguration project = ProjectConfiguration.loadFromXml(file);
+		setSource(project.getSource());
 	}
 
 
+	/**
+	 * Saves a configuration.
+	 * 
+	 * @param file the config file.
+	 */
 	public void saveConfigFile(final File file)
 	{
 		ApplicationLogger.getLogger().info("Saving project configuration to file: " + file.getAbsolutePath());
-		// TODO ProjectConfiguration.saveToXmlFile(this, file);
+		ProjectConfiguration.saveToXmlFile(this, file);
+	}
+
+
+	@Override
+	public File getSource()
+	{
+		return _source.getFile();
+	}
+
+
+	private void setSource(final File file)
+	{
+		_source.setFile(file);
 	}
 }
