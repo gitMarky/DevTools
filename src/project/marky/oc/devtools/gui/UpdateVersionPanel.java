@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -19,27 +20,41 @@ import javax.swing.JTextField;
 public class UpdateVersionPanel extends JPanel implements ActionListener, KeyListener
 {
 	final JTextField _versionField = new JTextField();
+	final JButton _update = new JButton("Perform update!");
 
 	public UpdateVersionPanel()
 	{
 		super();
 
+		_versionField.setText("-");
 		_versionField.addActionListener(this);
 		_versionField.addKeyListener(this);
 		_versionField.setSize(100, 0);
+
+		_update.addActionListener(this);
 
 		this.setBorder(BorderFactory.createTitledBorder("DefCore.txt Version Update"));
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
 		this.add(new JLabel("Version    "));
 		this.add(_versionField);
+		this.add(_update);
+
+		checkVersionString();
 	}
 
 
 	@Override
 	public void actionPerformed(final ActionEvent action)
 	{
-		checkVersionString();
+		if (action.getSource() == _update)
+		{
+			updateVersion();
+		}
+		else if (action.getSource() == _versionField)
+		{
+			checkVersionString();
+		}
 	}
 
 
@@ -65,6 +80,12 @@ public class UpdateVersionPanel extends JPanel implements ActionListener, KeyLis
 	}
 
 
+	private void updateVersion()
+	{
+		// does nothing at the moment
+	}
+
+
 	private void checkVersionString()
 	{
 		final boolean isValid = isValidVersion(_versionField.getText());
@@ -72,10 +93,12 @@ public class UpdateVersionPanel extends JPanel implements ActionListener, KeyLis
 		if (isValid)
 		{
 			_versionField.setForeground(Color.BLACK);
+			_update.setEnabled(true);
 		}
 		else
 		{
 			_versionField.setForeground(Color.RED);
+			_update.setEnabled(false);
 		}
 	}
 
