@@ -134,7 +134,7 @@ public class DevToolsGui
 		{
 			try
 			{
-				//TODO _project.loadConfigFile(file);
+				_project.loadConfigFile(file);
 			}
 			catch (final IllegalArgumentException e)
 			{
@@ -159,7 +159,7 @@ public class DevToolsGui
 	{
 		if (_project != null && file != null)
 		{
-			//TODO _project.saveConfigFile(file);
+			_project.saveConfigFile(file);
 		}
 		else
 		{
