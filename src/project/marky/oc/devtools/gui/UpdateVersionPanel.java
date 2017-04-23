@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -21,6 +23,9 @@ public class UpdateVersionPanel extends JPanel implements ActionListener, KeyLis
 {
 	final JTextField _versionField = new JTextField();
 	final JButton _update = new JButton("Perform update!");
+
+	Timer _timer;
+
 
 	public UpdateVersionPanel()
 	{
@@ -40,7 +45,7 @@ public class UpdateVersionPanel extends JPanel implements ActionListener, KeyLis
 		this.add(_versionField);
 		this.add(_update);
 
-		checkVersionString();
+		checkVersion();
 	}
 
 
@@ -53,7 +58,7 @@ public class UpdateVersionPanel extends JPanel implements ActionListener, KeyLis
 		}
 		else if (action.getSource() == _versionField)
 		{
-			checkVersionString();
+			checkVersion();
 		}
 	}
 
@@ -69,7 +74,7 @@ public class UpdateVersionPanel extends JPanel implements ActionListener, KeyLis
 	public void keyReleased(final KeyEvent event)
 	{
 		// do nothing
-		checkVersionString();
+		checkVersion(150);
 	}
 
 
@@ -86,7 +91,7 @@ public class UpdateVersionPanel extends JPanel implements ActionListener, KeyLis
 	}
 
 
-	private void checkVersionString()
+	private void checkVersion()
 	{
 		final boolean isValid = isValidVersion(_versionField.getText());
 
@@ -100,7 +105,36 @@ public class UpdateVersionPanel extends JPanel implements ActionListener, KeyLis
 			_versionField.setForeground(Color.RED);
 			_update.setEnabled(false);
 		}
+
+		cancelTimer();
 	}
+
+
+	private void cancelTimer()
+	{
+		if (_timer != null)
+		{
+			_timer.cancel();
+			_timer = null;
+		}
+	}
+
+
+	private void checkVersion(final long delay)
+	{
+		cancelTimer();
+
+		_timer = new Timer();
+		_timer.schedule(new TimerTask()
+		{
+			@Override
+			public void run()
+			{
+				checkVersion();
+			}
+		}, delay);
+	}
+
 
 	static boolean isValidVersion(final String version)
 	{
